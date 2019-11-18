@@ -16,28 +16,23 @@ column1 = dbc.Col(
         dcc.Markdown(
             """
         
-            ## Your Value Proposition
+            ## Edible or Regrettable?
 
-            Emphasize how the app will benefit users. Don't emphasize the underlying technology.
+            Living in the Pacific Northwest, the rain brings delightful and dangerous mushrooms alike.  
+            *Edible or Regrettable* categorizes mushrooms in the *Lepiota* or *Agaricus* family as edible or poisonous, based on a few key characteristics.  
+            Questionable mushrooms are categorized as poisonous, so rest assured that your edible mushrooms will be delicious.
 
-            ✅ RUN is a running app that adapts to your fitness levels and designs personalized workouts to help you improve your running.
-
-            ❌ RUN is the only intelligent running app that uses sophisticated deep neural net machine learning to make your run smarter because we believe in ML driven workouts.
-
+            DISCLAIMER: I am just a data scientist and mushroom hunting hobbyist. This app is for educational purposes only. 
             """
         ),
-        dcc.Link(dbc.Button('Your Call To Action', color='primary'), href='/predictions')
+        dcc.Link(dbc.Button('Can I Eat This?', color='primary'), href='/predictions')
     ],
     md=4,
 )
 
-gapminder = px.data.gapminder()
-fig = px.scatter(gapminder.query("year==2007"), x="gdpPercap", y="lifeExp", size="pop", color="continent",
-           hover_name="country", log_x=True, size_max=60)
-
 column2 = dbc.Col(
     [
-        dcc.Graph(figure=fig),
+        html.Img(src='assets/RamsWithMushroom.jpg', className='img-fluid')
     ]
 )
 
