@@ -124,7 +124,8 @@ column1 = dbc.Col(
 column2 = dbc.Col(
     [
         html.H2('Edible or Regrettable?', className='mb-5'), 
-        html.Div(id='prediction-content', className='lead')
+        html.Div(id='prediction-content', className='lead', style={'font-weight': 'bold'}),
+        html.Div(id='prediction-image') 
     ]
 )
 
@@ -144,9 +145,9 @@ layout = dbc.Row([column1, column2])
 )
 
 def predict(
-    spore_print_color, 
-    gill_size, 
-    gill_attachment, 
+    spore_print_color,  
+    gill_size,
+    gill_attachment,
     population, 
     habitat, 
     gill_spacing,
@@ -154,14 +155,14 @@ def predict(
 
     #make dataframe from inputs
     df = pd.DataFrame(
-        data=[[ spore_print_color, 
-               gill_size, 
+        data=[[ spore_print_color,
+               gill_size,  
                gill_attachment, 
                population, 
                habitat, 
                gill_spacing,
                gill_color]],
-        columns= ['spore_print_color', 
+        columns= ['spore_print_color',
                   'gill_size', 
                   'gill_attachment', 
                   'population', 
@@ -172,5 +173,56 @@ def predict(
     
     # Get the model's prediction
     y_pred = pipeline.predict(df)[0]
+        
+    class_index = 1
+    y_pred_proba = pipeline.predict_proba(df)[:, class_index][0]
     
-    return f'Your mushroom is {y_pred}'
+    return f'Your mushroom is {y_pred}. There is a probability of {y_pred_proba:.2f} that the mushroom is poisonous' 
+
+@app.callback(
+    Output('prediction-image', 'children'),
+    [
+        Input('spore_print_color', 'value'), 
+        Input('gill_size', 'value'),
+        Input('gill_attachment', 'value'),
+        Input('population', 'value'),
+        Input('habitat', 'value'), 
+        Input('gill_spacing', 'value'),
+        Input('gill_color', 'value')  
+    ],
+)
+
+def predict_image(
+    spore_print_color,
+    gill_size, 
+    gill_attachment, 
+    population, 
+    habitat, 
+    gill_spacing,
+    gill_color):
+
+    #make dataframe from inputs
+    df = pd.DataFrame(
+        data=[[ spore_print_color,
+               gill_size,  
+               gill_attachment, 
+               population, 
+               habitat, 
+               gill_spacing,
+               gill_color]],
+        columns= ['spore_print_color',
+                  'gill_size',  
+                  'gill_attachment', 
+                  'population', 
+                  'habitat', 
+                  'gill_spacing',
+                  'gill_color']
+    )
+    
+    # Get the model's prediction
+    y_pred = pipeline.predict(df)[0]
+
+    if y_pred == 'poisonous':
+        return html.Img(src='assets/regrettable.png',className='img-fluid', style = {'height': '400px'})
+    else:
+        return html.Img(src='assets/edible.jpg',className='img-fluid', style = {'height': '400px'})
