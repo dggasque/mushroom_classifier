@@ -21,39 +21,30 @@ column1 = dbc.Col(
         
             ## Predictions
 
-            Your instructions: How to use your app to get new predictions.
+            Use the dropdown menus to select the characteristics associated with the mushroom.
+
 
             """
         ),
-        dcc.Markdown('#### Gill Attatchment Type'),
+        dcc.Markdown('#### What is the Cap Surface'),
         dcc.Dropdown(
-            id='gill_attachment',
+            id='cap_surface',
             options = [
-                {'label': 'attached', 'value': 'attached'},
-                {'label': 'descending', 'value': 'descending'},
-                {'label': 'free', 'value': 'free'},
-                {'label': 'notched', 'value': 'notched'}
+                {'label': 'fibrous', 'value': 'fibrous'},
+                {'label': 'grooves', 'value': 'grooves'},
+                {'label': 'scaly', 'value': 'scaly'},
+                {'label': 'smooth', 'value': 'smooth'}
             ],
-            value='attached'
-        ),
-        dcc.Markdown('#### Gill Color'),
+            value='fibrous'
+        ),        
+        dcc.Markdown('#### Does the Mushroom Bruise?'),
         dcc.Dropdown(
-            id='gill_color',
+            id='bruises',
             options = [
-                {'label': 'black', 'value': 'black'},
-                {'label': 'brown', 'value': 'brown'},
-                {'label': 'buff', 'value': 'buff'},
-                {'label': 'chocolate', 'value': 'chocolate'},
-                {'label': 'gray', 'value': 'gray'},
-                {'label': 'green', 'value': 'green'},
-                {'label': 'orange', 'value': 'orange'},
-                {'label': 'pink', 'value': 'pink'},
-                {'label': 'purple', 'value': 'purple'},
-                {'label': 'red', 'value': 'red'},
-                {'label': 'white', 'value': 'white'},
-                {'label': 'yellow', 'value': 'yellow'}
+                {'label': 'Yes', 'value': 'yes'},
+                {'label': 'No', 'value': 'no'},
             ],
-            value='black'
+            value='yes'
         ),
         dcc.Markdown('#### Gill Size'),
         dcc.Dropdown(
@@ -74,7 +65,7 @@ column1 = dbc.Col(
             ],
             value='distant'
         ),
-        dcc.Markdown('#### Habitat'),
+        dcc.Markdown('#### In What Habitat Did You Find The Mushroom?'),
         dcc.Dropdown(
             id='habitat',
             options = [
@@ -87,21 +78,28 @@ column1 = dbc.Col(
                 {'label': 'woods', 'value': 'woods'}
             ],
             value='grasses'
-        ),
-        dcc.Markdown('#### Population'),
-        dcc.Dropdown(
-            id='population',
-            options = [
-                {'label': 'abundant', 'value': 'abundant'},
-                {'label': 'clustered', 'value': 'clustered'},
-                {'label': 'numerous', 'value': 'numerous'},
-                {'label': 'scattered', 'value': 'scattered'},
-                {'label': 'several', 'value': 'several'},
-                {'label': 'solitary', 'value': 'solitary'}
-            ],
-            value='abundant'
         ), 
-        dcc.Markdown('#### Spore Print Color'),
+    ],
+    md=4,
+)
+column2 = dbc.Col(
+    [ 
+        dcc.Markdown('#### What Type of Ring Does The Mushroom Have?'),
+        dcc.Dropdown(
+            id='ring_type',
+            options = [
+                {'label': 'cobwebby', 'value': 'cobwebby'},
+                {'label': 'evanescent', 'value': 'evanescent'},
+                {'label': 'flaring', 'value': 'flaring'},
+                {'label': 'large', 'value': 'large'},
+                {'label': 'pendant', 'value': 'pendant'},
+                {'label': 'sheathing', 'value': 'sheathing'},
+                {'label': 'ring zone', 'value': 'zone'},
+                {'label': 'none', 'value': 'none'}
+            ],
+            value='cobwebby'
+        ), 
+        dcc.Markdown('#### What Color are the Spores?'),
         dcc.Dropdown(
             id='spore_print_color',
             options = [
@@ -116,12 +114,34 @@ column1 = dbc.Col(
                 {'label': 'yellow', 'value': 'yellow'}
             ],
             value='black'
+        ),
+        dcc.Markdown('#### How is the Stalk Shaped?'),
+        dcc.Dropdown(
+            id='stalk_shape',
+            options = [
+                {'label': 'enlarging', 'value': 'enlarging'},
+                {'label': 'tapering', 'value': 'tapering'}
+            ],
+            value='enlarging'
+        ), 
+        dcc.Markdown('#### What Kind of Stalk Root Does The Mushroom Have?'),
+        dcc.Dropdown(
+            id='stalk_root',
+            options = [
+                {'label': 'bulbous', 'value': 'bulbous'},
+                {'label': 'club', 'value': 'club'},
+                {'label': 'cup', 'value': 'cup'},
+                {'label': 'equal', 'value': 'equal'},
+                {'label': 'rhizomorph', 'value': 'rhizomorph'},
+                {'label': 'rooted', 'value': 'rooted'}
+            ],
+            value='bulbous'
         ), 
     ],
     md=4,
 )
 
-column2 = dbc.Col(
+column3 = dbc.Col(
     [
         html.H2('Edible or Regrettable?', className='mb-5'), 
         html.Div(id='prediction-content', className='lead', style={'font-weight': 'bold'}),
@@ -129,94 +149,122 @@ column2 = dbc.Col(
     ]
 )
 
-layout = dbc.Row([column1, column2])
+layout = dbc.Row([column1, column2, column3])
 
 @app.callback(
     Output('prediction-content', 'children'),
     [
-        Input('spore_print_color', 'value'), 
-        Input('gill_size', 'value'),
-        Input('gill_attachment', 'value'),
-        Input('population', 'value'),
-        Input('habitat', 'value'), 
+        Input('cap_surface', 'value'), 
+        Input('bruises', 'value'),
         Input('gill_spacing', 'value'),
-        Input('gill_color', 'value')  
+        Input('gill_size', 'value'),
+        Input('stalk_shape', 'value'), 
+        Input('stalk_root', 'value'),
+        Input('ring_type', 'value'), 
+        Input('spore_print_color', 'value'),
+        Input('habitat', 'value')    
     ],
 )
 
 def predict(
-    spore_print_color,  
-    gill_size,
-    gill_attachment,
-    population, 
-    habitat, 
-    gill_spacing,
-    gill_color):
+    cap_surface, 
+    bruises, 
+    gill_spacing, 
+    gill_size, 
+    stalk_shape,
+    stalk_root, 
+    ring_type, 
+    spore_print_color, 
+    habitat
+):
 
+    if bruises == 'yes':
+        bruises = True
+    else:
+         bruises = False
+    
     #make dataframe from inputs
     df = pd.DataFrame(
-        data=[[ spore_print_color,
-               gill_size,  
-               gill_attachment, 
-               population, 
-               habitat, 
-               gill_spacing,
-               gill_color]],
-        columns= ['spore_print_color',
+        data=[[cap_surface, 
+               bruises,
+               gill_spacing, 
+               gill_size, 
+               stalk_shape,
+               stalk_root, 
+               ring_type,
+               spore_print_color,
+               habitat]],
+        columns= ['cap_surface', 
+                  'bruises', 
+                  'gill_spacing', 
                   'gill_size', 
-                  'gill_attachment', 
-                  'population', 
-                  'habitat', 
-                  'gill_spacing',
-                  'gill_color']
+                  'stalk_shape',
+                  'stalk_root', 
+                  'ring_type', 
+                  'spore_print_color', 
+                  'habitat']
     )
     
     # Get the model's prediction
     y_pred = pipeline.predict(df)[0]
-        
-    class_index = 1
-    y_pred_proba = pipeline.predict_proba(df)[:, class_index][0]
     
-    return f'Your mushroom is {y_pred}. There is a probability of {y_pred_proba:.2f} that the mushroom is poisonous' 
+    class_index = 1
+    y_pred_proba = (pipeline.predict_proba(df)[:, class_index][0]) * 100
+    
+    return f'Your mushroom is {y_pred}. There is a {y_pred_proba:.0f}% probability that the mushroom is poisonous!' 
 
 @app.callback(
     Output('prediction-image', 'children'),
     [
-        Input('spore_print_color', 'value'), 
-        Input('gill_size', 'value'),
-        Input('gill_attachment', 'value'),
-        Input('population', 'value'),
-        Input('habitat', 'value'), 
+        Input('cap_surface', 'value'), 
+        Input('bruises', 'value'),
         Input('gill_spacing', 'value'),
-        Input('gill_color', 'value')  
+        Input('gill_size', 'value'),
+        Input('stalk_shape', 'value'), 
+        Input('stalk_root', 'value'),
+        Input('ring_type', 'value'), 
+        Input('spore_print_color', 'value'),
+        Input('habitat', 'value')     
     ],
 )
 
-def predict_image(
-    spore_print_color,
+def predict(
+    cap_surface, 
+    bruises, 
+    gill_spacing, 
     gill_size, 
-    gill_attachment, 
-    population, 
-    habitat, 
-    gill_spacing,
-    gill_color):
+    stalk_shape,
+    stalk_root, 
+    ring_type, 
+    spore_print_color, 
+    habitat
+):
 
+    if bruises == 'yes':
+        bruises = True
+    else:
+         bruises = False
+    
     #make dataframe from inputs
     df = pd.DataFrame(
-        data=[[ spore_print_color,
-               gill_size,  
-               gill_attachment, 
-               population, 
-               habitat, 
-               gill_spacing,
-               gill_color]],
-        columns= ['spore_print_color',
-                  'gill_size',  
-                  'gill_attachment', 
-                  'population', 
-                  'habitat', 
-                  'gill_spacing',
-                  'gill_color']
+        data=[[cap_surface, 
+               bruises,
+               gill_spacing, 
+               gill_size, 
+               stalk_shape,
+               stalk_root, 
+               ring_type,
+               spore_print_color,
+               habitat]],
+        columns= ['cap_surface', 
+                  'bruises', 
+                  'gill_spacing', 
+                  'gill_size', 
+                  'stalk_shape',
+                  'stalk_root', 
+                  'ring_type', 
+                  'spore_print_color', 
+                  'habitat']
     )
     
     # Get the model's prediction
