@@ -36,6 +36,7 @@ column1 = dbc.Col(
                 {'label': 'Scaly', 'value': 'scaly'},
                 {'label': 'Smooth', 'value': 'smooth'}
             ],
+            className='mb-2',
             value='fibrous'
         ),        
         dcc.Markdown('#### Does the Mushroom Bruise?'),
@@ -45,6 +46,7 @@ column1 = dbc.Col(
                 {'label': 'Yes', 'value': 'yes'},
                 {'label': 'No', 'value': 'no'},
             ],
+            className='mb-2',
             value='yes'
         ),
         dcc.Markdown('#### Gill Size'),
@@ -54,6 +56,7 @@ column1 = dbc.Col(
                 {'label': 'Broad', 'value': 'broad'},
                 {'label': 'Narrow', 'value': 'narrow'}
             ],
+            className='mb-2',
             value='broad'
         ),
         dcc.Markdown('#### Gill Spacing'),
@@ -64,6 +67,7 @@ column1 = dbc.Col(
                 {'label': 'Crowded', 'value': 'crowded'},
                 {'label': 'Distant', 'value': 'distant'},
             ],
+            className='mb-2',
             value='distant'
         ),
     ],
@@ -83,6 +87,7 @@ column2 = dbc.Col(
                 {'label': 'Waste', 'value': 'waste'},
                 {'label': 'Woods', 'value': 'woods'}
             ],
+            className='mb-2',
             value='grasses'
         ), 
         dcc.Markdown('#### What Type of Ring Does The Mushroom Have?'),
@@ -98,6 +103,7 @@ column2 = dbc.Col(
                 {'label': 'Ring zone', 'value': 'zone'},
                 {'label': 'None', 'value': 'none'}
             ],
+            className='mb-2',
             value='cobwebby'
         ), 
         dcc.Markdown('#### What Color are the Spores?'),
@@ -114,6 +120,7 @@ column2 = dbc.Col(
                 {'label': 'White', 'value': 'white'},
                 {'label': 'Yellow', 'value': 'yellow'}
             ],
+            className='mb-2',
             value='black'
         ),
         dcc.Markdown('#### How is the Stalk Shaped?'),
@@ -123,6 +130,7 @@ column2 = dbc.Col(
                 {'label': 'Enlarging', 'value': 'enlarging'},
                 {'label': 'Tapering', 'value': 'tapering'}
             ],
+            className='mb-2',
             value='enlarging'
         ), 
         dcc.Markdown('#### What Kind of Stalk Root Does The Mushroom Have?'),
@@ -136,6 +144,7 @@ column2 = dbc.Col(
                 {'label': 'Rhizomorph', 'value': 'rhizomorph'},
                 {'label': 'Rooted', 'value': 'rooted'}
             ],
+            className='mb-2',
             value='bulbous'
         ), 
     ],
