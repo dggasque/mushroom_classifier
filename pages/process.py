@@ -4,9 +4,18 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
+import pandas as pd
+import plotly.express as px
 
 # Imports from this application
 from app import app
+
+
+web_url = 'https://gist.githubusercontent.com/dggasque/cf034a3ce095830bd891b5af42987fb0/raw/7223d727d1aa65ad915575fe9ff46d7ee1be0f0f/mushroom_mapped.csv'
+
+df = pd.read_csv(web_url)
+
+fig1 = px.histogram(df, x="odor", color="class")
 
 # 1 column layout
 # https://dash-bootstrap-components.opensource.faculty.ai/l/components/layout
@@ -45,13 +54,49 @@ column1 = dbc.Col(
 
             """
         ),
-        html.Img(src='assets/permutationOdor.png', className='img-fluid'),
+        html.Img(src='assets/PermutationWithOdor.png', className='img-fluid'),
         dcc.Markdown(
             """
-            Taking odor out of the 
+            The distribution of odors associated with each class of mushroom shows why the feature dominates the model.
             """
-        )
+        ),
+        dcc.Graph(figure=fig1),
+        dcc.Markdown(
+            """
+            While using odor in the model creates the most accurate and efficient model, I have chosen to leave it out to make 
+            *Edible or Regrettable* more interesting. By removing odor we are able to train a model that uses more features. This 
+            also makes the model more like the process that someone might use to identify a mushroom.
 
+            Looking at permutation importance after removing `odor` from the predictiopn model, there are nine features we can use 
+            to predict the edibility of the mushrooms: `cap_surface`, `bruises`, `gill_spacing`, `gill_size`, `stalk_shape`, `stalk_root`, 
+            `ring_type`, `spore_print_color`, and `habitat`.
+            """
+        ),
+        html.Img(src='assets/PermutationWithoutOdor.png', className='img-fluid'),
+        dcc.Markdown(
+            """
+            #### Model Selection
+            
+            This is a classification problem, so I began with a Logistic Regression model which yeilded a validation score of 92.5% and 
+            Area Under the Receiver Operator Curve score of 93.8%. This is signifigantly better than the baseline score; however, a tree 
+            based model can perform even better. I used Random Forest Classifier to build the final model. To train and test the data, 
+            I used a three way train, valadate and test set split. You can find the evaluation of the model on the Insights page. 
+            Below is the evaluation of the validation set using the linear model for comparision.
+
+            ##### Classification Report for Logistic Regression
+            """
+        ),
+        html.Img(src='assets/LRClassificationReport.png', className='img-fluid'),
+        dcc.Markdown(
+            """
+            The Precision score for edible muishrooms is 90% which in terms of predicitive modeling can seem like a high score, but a 10% false 
+            positive rate is also relatively high considering the consiquences can be deadly. The Recall score for poisonous mushrooms is 89%, so 
+            11% of the poisonous mushrooms were misclassified as edible.
+
+            ##### Confusion Matrix for Logistic Regression
+            """
+        ),
+        html.Img(src='assets/LRConfusionMatrix.png', className='img-fluid'),
     ],
 )
 

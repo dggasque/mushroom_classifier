@@ -10,6 +10,7 @@ import pandas as pd
 # Imports from this application
 from app import app
 
+
 pipeline = load('assets/pipeline.joblib')
 
 # 2 column layout. 1st column width = 4/12
@@ -30,10 +31,10 @@ column1 = dbc.Col(
         dcc.Dropdown(
             id='cap_surface',
             options = [
-                {'label': 'fibrous', 'value': 'fibrous'},
-                {'label': 'grooves', 'value': 'grooves'},
-                {'label': 'scaly', 'value': 'scaly'},
-                {'label': 'smooth', 'value': 'smooth'}
+                {'label': 'Fibrous', 'value': 'fibrous'},
+                {'label': 'Grooves', 'value': 'grooves'},
+                {'label': 'Scaly', 'value': 'scaly'},
+                {'label': 'Smooth', 'value': 'smooth'}
             ],
             value='fibrous'
         ),        
@@ -50,8 +51,8 @@ column1 = dbc.Col(
         dcc.Dropdown(
             id='gill_size',
             options = [
-                {'label': 'broad', 'value': 'broad'},
-                {'label': 'narrow', 'value': 'narrow'}
+                {'label': 'Broad', 'value': 'broad'},
+                {'label': 'Narrow', 'value': 'narrow'}
             ],
             value='broad'
         ),
@@ -59,43 +60,43 @@ column1 = dbc.Col(
         dcc.Dropdown(
             id='gill_spacing',
             options = [
-                {'label': 'close', 'value': 'close'},
-                {'label': 'crowded', 'value': 'crowded'},
-                {'label': 'distant', 'value': 'distant'},
+                {'label': 'Close', 'value': 'close'},
+                {'label': 'Crowded', 'value': 'crowded'},
+                {'label': 'Distant', 'value': 'distant'},
             ],
             value='distant'
         ),
-        dcc.Markdown('#### In What Habitat Did You Find The Mushroom?'),
-        dcc.Dropdown(
-            id='habitat',
-            options = [
-                {'label': 'grasses', 'value': 'grasses'},
-                {'label': 'leaves', 'value': 'leaves'},
-                {'label': 'meadows', 'value': 'meadows'},
-                {'label': 'paths', 'value': 'paths'},
-                {'label': 'urban', 'value': 'urban'},
-                {'label': 'waste', 'value': 'waste'},
-                {'label': 'woods', 'value': 'woods'}
-            ],
-            value='grasses'
-        ), 
     ],
     md=4,
 )
 column2 = dbc.Col(
     [ 
+        dcc.Markdown('#### In What Habitat Did You Find The Mushroom?'),
+        dcc.Dropdown(
+            id='habitat',
+            options = [
+                {'label': 'Grasses', 'value': 'grasses'},
+                {'label': 'Leaves', 'value': 'leaves'},
+                {'label': 'Meadows', 'value': 'meadows'},
+                {'label': 'Paths', 'value': 'paths'},
+                {'label': 'Urban', 'value': 'urban'},
+                {'label': 'Waste', 'value': 'waste'},
+                {'label': 'Woods', 'value': 'woods'}
+            ],
+            value='grasses'
+        ), 
         dcc.Markdown('#### What Type of Ring Does The Mushroom Have?'),
         dcc.Dropdown(
             id='ring_type',
             options = [
-                {'label': 'cobwebby', 'value': 'cobwebby'},
-                {'label': 'evanescent', 'value': 'evanescent'},
-                {'label': 'flaring', 'value': 'flaring'},
-                {'label': 'large', 'value': 'large'},
-                {'label': 'pendant', 'value': 'pendant'},
-                {'label': 'sheathing', 'value': 'sheathing'},
-                {'label': 'ring zone', 'value': 'zone'},
-                {'label': 'none', 'value': 'none'}
+                {'label': 'Cobwebby', 'value': 'cobwebby'},
+                {'label': 'Evanescent', 'value': 'evanescent'},
+                {'label': 'Flaring', 'value': 'flaring'},
+                {'label': 'Large', 'value': 'large'},
+                {'label': 'Pendant', 'value': 'pendant'},
+                {'label': 'Sheathing', 'value': 'sheathing'},
+                {'label': 'Ring zone', 'value': 'zone'},
+                {'label': 'None', 'value': 'none'}
             ],
             value='cobwebby'
         ), 
@@ -103,15 +104,15 @@ column2 = dbc.Col(
         dcc.Dropdown(
             id='spore_print_color',
             options = [
-                {'label': 'black', 'value': 'black'},
-                {'label': 'brown', 'value': 'brown'},
-                {'label': 'buff', 'value': 'buff'},
-                {'label': 'chocolate', 'value': 'chocolate'},
-                {'label': 'green', 'value': 'green'},
-                {'label': 'orange', 'value': 'orange'},
-                {'label': 'purple', 'value': 'purple'},
-                {'label': 'white', 'value': 'white'},
-                {'label': 'yellow', 'value': 'yellow'}
+                {'label': 'Black', 'value': 'black'},
+                {'label': 'Brown', 'value': 'brown'},
+                {'label': 'Buff', 'value': 'buff'},
+                {'label': 'Chocolate', 'value': 'chocolate'},
+                {'label': 'Green', 'value': 'green'},
+                {'label': 'Orange', 'value': 'orange'},
+                {'label': 'Purple', 'value': 'purple'},
+                {'label': 'White', 'value': 'white'},
+                {'label': 'Yellow', 'value': 'yellow'}
             ],
             value='black'
         ),
@@ -119,8 +120,8 @@ column2 = dbc.Col(
         dcc.Dropdown(
             id='stalk_shape',
             options = [
-                {'label': 'enlarging', 'value': 'enlarging'},
-                {'label': 'tapering', 'value': 'tapering'}
+                {'label': 'Enlarging', 'value': 'enlarging'},
+                {'label': 'Tapering', 'value': 'tapering'}
             ],
             value='enlarging'
         ), 
@@ -128,12 +129,12 @@ column2 = dbc.Col(
         dcc.Dropdown(
             id='stalk_root',
             options = [
-                {'label': 'bulbous', 'value': 'bulbous'},
-                {'label': 'club', 'value': 'club'},
-                {'label': 'cup', 'value': 'cup'},
-                {'label': 'equal', 'value': 'equal'},
-                {'label': 'rhizomorph', 'value': 'rhizomorph'},
-                {'label': 'rooted', 'value': 'rooted'}
+                {'label': 'Bulbous', 'value': 'bulbous'},
+                {'label': 'Club', 'value': 'club'},
+                {'label': 'Cup', 'value': 'cup'},
+                {'label': 'Equal', 'value': 'equal'},
+                {'label': 'Rhizomorph', 'value': 'rhizomorph'},
+                {'label': 'Rooted', 'value': 'rooted'}
             ],
             value='bulbous'
         ), 
@@ -211,7 +212,12 @@ def predict(
     class_index = 1
     y_pred_proba = (pipeline.predict_proba(df)[:, class_index][0]) * 100
     
-    return f'Your mushroom is {y_pred}. There is a {y_pred_proba:.0f}% probability that the mushroom is poisonous!' 
+        
+    if y_pred == 'edible':
+        return f'Your mushroom is likely {y_pred}. BEWARE: There is a {y_pred_proba:.0f}% probability that the mushroom is poisonous!'
+    else:
+        return f'Your mushroom is likely {y_pred} with a predicted probability of {y_pred_proba:.0f}%!'
+
 
 @app.callback(
     Output('prediction-image', 'children'),
@@ -271,6 +277,6 @@ def predict(
     y_pred = pipeline.predict(df)[0]
 
     if y_pred == 'poisonous':
-        return html.Img(src='assets/regrettable.png',className='img-fluid', style = {'height': '400px'})
+        return html.Img(src='assets/regrettable.png',className='img-fluid', style = {'height': '200px'})
     else:
-        return html.Img(src='assets/edible.jpg',className='img-fluid', style = {'height': '400px'})
+        return html.Img(src='assets/edible.jpg',className='img-fluid', style = {'height': '200px'})
