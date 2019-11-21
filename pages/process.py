@@ -54,7 +54,7 @@ column1 = dbc.Col(
 
             """
         ),
-        html.Img(src='assets/PermutationWithOdor.png', className='img-fluid'),
+        #html.Img(src='assets/PermutationWithOdor.png', className='img-fluid'),
         dcc.Markdown(
             """
             The distribution of odors associated with each class of mushroom shows why the feature dominates the model.
