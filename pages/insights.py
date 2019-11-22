@@ -102,7 +102,7 @@ column1 = dbc.Col(
             """
             ### How the Model Decides
 
-            Analyzing the principle dependencies of the individual features, I found that `spore_print_color`
+            Analyzing the partial dependencies of the individual features, I found that `spore_print_color`
             and `ring_type` the biggest impacts on determining that a mushroom was poisionous. 
             """
         ),
