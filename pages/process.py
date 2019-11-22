@@ -67,7 +67,7 @@ column1 = dbc.Col(
             *Edible or Regrettable* more interesting. By removing odor we are able to train a model that uses more features. This 
             also makes the model more like the process that someone might use to identify a mushroom.
 
-            Looking at permutation importance after removing `odor` from the predictiopn model, there are nine features we can use 
+            Looking at permutation importance after removing `odor` from the prediction model, there are nine features we can use 
             to predict the edibility of the mushrooms: `cap_surface`, `bruises`, `gill_spacing`, `gill_size`, `stalk_shape`, `stalk_root`, 
             `ring_type`, `spore_print_color`, and `habitat`.
             """

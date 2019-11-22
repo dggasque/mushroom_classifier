@@ -27,7 +27,7 @@ column1 = dbc.Col(
 
             """
         ),
-        dcc.Markdown('#### What is the Cap Surface'),
+        dcc.Markdown('#### What Kind of Surface Does the Cap Have?'),
         dcc.Dropdown(
             id='cap_surface',
             options = [
